@@ -10,6 +10,7 @@ let boardState = [
 ];
 
 function checkSum(sum) {
+  const b = boardState;
   if (sum == 3) {
     alert("O wins!\nClick ok to play again");
     resetBoard();
@@ -19,20 +20,21 @@ function checkSum(sum) {
   }
 }
 
+// logic to check for a draw, not inlcuding now becuase it would pop up before the win message
+// if (!(b[0].includes(0) || b[1].includes(0) || b[2].includes(0))) {
+//   alert("Draw!\nClick ok to play again");
+//   resetBoard();
+// }
+
 function checkWin() {
   const b = boardState;
-  if (!(b[0].includes(0) || b[1].includes(0) || b[2].includes(0))) {
-    alert("Draw!\nClick ok to play again");
-    resetBoard();
-  } else {
-    for (let i = 0; i < DIM; i++) {
-      let sum = b[0][i] + b[1][i] + b[2][i];
-      checkSum(sum);
-    }
-    // diagonals
-    checkSum(b[0][0] + b[1][1] + b[2][2]);
-    checkSum(b[0][2] + b[1][1] + b[2][0]);
+  for (let i = 0; i < DIM; i++) {
+    checkSum(b[0][i] + b[1][i] + b[2][i]);
+    checkSum(b[i][0] + b[i][1] + b[i][2]);
   }
+  // diagonals
+  checkSum(b[0][0] + b[1][1] + b[2][2]);
+  checkSum(b[0][2] + b[1][1] + b[2][0]);
 }
 
 function createBoard(dim = 3) {
